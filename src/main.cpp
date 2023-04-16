@@ -5,13 +5,14 @@
 
 int main(int argc, char* argv[])
 {
-    bool exclaim = false;
+    bool        exclaim = false;
+    std::string name    = "world";
 
     boost::program_options::options_description args_desc("Options");
     // clang-format off
     args_desc.add_options()
         ("help,h", "print usage")
-        ("name,n", boost::program_options::value<std::string>()->required(), "name to say hello to")
+        ("name,n", boost::program_options::value<std::string>(), (std::string("name to say hello to (default: ") + name + std::string(")")).c_str())
         ("exclaim,e", boost::program_options::bool_switch(&exclaim), "whether to exclaim");
     // clang-format on
 
@@ -25,6 +26,12 @@ int main(int argc, char* argv[])
         return 0;
     }
 
-    std::cout << getHelloWorld(vm["name"].as<std::string>(), vm["exclaim"].as<bool>()) << std::endl;
+    if (vm.count("name"))
+    {
+        name = vm["name"].as<std::string>();
+    }
+
+    std::cout << getHelloWorld(name, vm["exclaim"].as<bool>()) << std::endl;
+
     return 0;
 }
