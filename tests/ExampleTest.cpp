@@ -1,8 +1,13 @@
-#include <boost/test/unit_test.hpp>
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wshadow"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+#define CATCH_CONFIG_MAIN
+#include <catch2/catch.hpp>
+#pragma GCC diagnostic pop
 #include "example/HelloWorld.h"
 
-BOOST_AUTO_TEST_SUITE(TestExample)
-
-BOOST_AUTO_TEST_CASE(TestNothing) {}
-
-BOOST_AUTO_TEST_SUITE_END()
+TEST_CASE("Test Something")
+{
+    REQUIRE(true);
+}
